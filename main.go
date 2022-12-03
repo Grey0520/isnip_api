@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 
+	"github.com/Grey0520/isnip_api/controller"
+	"github.com/Grey0520/isnip_api/dao/mysql"
 	"github.com/Grey0520/isnip_api/logger"
+	"github.com/Grey0520/isnip_api/routers"
 	"github.com/Grey0520/isnip_api/settings"
-    "github.com/Grey0520/isnip_api/dao/mysql"
+	"github.com/Grey0520/isnip_api/utils/snowflake"
 )
 
 func main() {
@@ -25,4 +28,19 @@ func main() {
 		return
 	}
 	defer mysql.Close() // 程序退出关闭数据库连接
+	// 翻译
+	if err := snowflake.Init(1); err != nil {
+		fmt.Printf("init snowflake failed, err:%v\n", err)
+		return
+	}
+	if err := controller.InitTrans("zh"); err != nil {
+		fmt.Printf("init validator Trans failed,err:%v\n", err)
+		return
+	}
+	r := routers.SetupRouter(settings.Conf.Mode)
+	err := r.Run(fmt.Sprintf(":%d", settings.Conf.Port))
+	if err != nil {
+		fmt.Printf("run server failed, err:%v\n", err)
+		return
+	}
 }
