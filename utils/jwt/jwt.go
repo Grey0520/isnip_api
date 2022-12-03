@@ -47,7 +47,7 @@ func GenToken(userID uint64, username string) (aToken, rToken string, err error)
 	// refresh token 不需要存任何自定义数据
 	rToken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		ExpiresAt: time.Now().Add(time.Second * 30).Unix(), // 过期时间
-		Issuer:    "isnip",                              // 签发人
+		Issuer:    "isnip",                                 // 签发人
 	}).SignedString(mySecret)
 	// 使用指定的secret签名并获得完整的编码后的字符串token
 	return
@@ -61,7 +61,7 @@ func GenToken2(userID uint64, username string) (Token string, err error) {
 		"username", // 自定义字段
 		jwt.StandardClaims{ // JWT规定的7个官方字段
 			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(), // 过期时间
-            Issuer:    "isnip",                                 // 签发人
+			Issuer:    "isnip",                                    // 签发人
 		},
 	}
 	// 加密并获得完整的编码后的字符串token
