@@ -11,6 +11,20 @@ import (
 	"github.com/Grey0520/isnip_api/utils/snowflake"
 )
 
+//@title Isnip__Api
+//@version 1.0
+//@description 一点接口而已
+//@termsOfService http://swagger.io/terms/
+//
+//@contact.name author：@grey
+//@contact.url http://www.swagger.io/support
+//@contact.email support@swagger.io
+//
+//@license.name Apache 2.0
+//@license.url http://www.apache.org/licenses/LICENSE-2.0.html
+//
+//@host 127.0.0.1:5436
+//@BasePath /api/v1/
 func main() {
 	// 从`conf/conf.yaml`加载配置信息
 	if err := settings.Init(); err != nil {
@@ -28,11 +42,11 @@ func main() {
 		return
 	}
 	defer mysql.Close() // 程序退出关闭数据库连接
-	// 翻译
 	if err := snowflake.Init(1); err != nil {
 		fmt.Printf("init snowflake failed, err:%v\n", err)
 		return
 	}
+	// 翻译
 	if err := controller.InitTrans("zh"); err != nil {
 		fmt.Printf("init validator Trans failed,err:%v\n", err)
 		return

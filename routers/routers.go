@@ -47,7 +47,8 @@ func SetupRouter(mode string) *gin.Engine {
 		//v1.GET("/posts", controller.PostListHandler)		// 分页展示帖子列表
 		//
 		//v1.GET("/posts2", controller.PostList2Handler) // 根据时间或者分数排序分页展示帖子列表
-
+		v1.POST("/snippet", controller.SnippetHandler)
+        v1.GET("/snippet", controller.SnippetListHandler)
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})
