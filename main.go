@@ -5,6 +5,7 @@ import (
 
 	"github.com/Grey0520/isnip_api/controller"
 	"github.com/Grey0520/isnip_api/dao/mysql"
+	"github.com/Grey0520/isnip_api/dao/redis"
 	"github.com/Grey0520/isnip_api/logger"
 	"github.com/Grey0520/isnip_api/routers"
 	"github.com/Grey0520/isnip_api/settings"
@@ -42,6 +43,12 @@ func main() {
 		return
 	}
 	defer mysql.Close() // 程序退出关闭数据库连接
+	// 启动redis
+	if err := redis.Init(settings.Conf.RedisConfig); err != nil {
+		fmt.Printf("init redis failed, err:%v\n", err)
+		return
+	}
+	defer redis.Close()
 	if err := snowflake.Init(1); err != nil {
 		fmt.Printf("init snowflake failed, err:%v\n", err)
 		return

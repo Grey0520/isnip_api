@@ -40,15 +40,8 @@ func SetupRouter(mode string) *gin.Engine {
 
 	v1.Use(middlewares.JWTAuthMiddleware()) // 应用JWT认证中间件
 	{
-		// v1.GET("/community", controller.CommunityHandler)	// 获取分类社区列表
-		// v1.GET("/community/:id", controller.CommunityDetailHandler)	// 根据ID查找社区详情
-
-		//v1.GET("/post/:id", controller.PostDetailHandler) // 查询帖子详情
-		//v1.GET("/posts", controller.PostListHandler)		// 分页展示帖子列表
-		//
-		//v1.GET("/posts2", controller.PostList2Handler) // 根据时间或者分数排序分页展示帖子列表
-		v1.POST("/snippet", controller.SnippetHandler)
-        v1.GET("/snippet", controller.SnippetListHandler)
+		v1.POST("/snippet", controller.CreateSnippetHandler)
+		v1.GET("/snippet", controller.SnippetListHandler)
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})
