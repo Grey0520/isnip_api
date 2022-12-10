@@ -6,7 +6,7 @@ import (
 	"github.com/Grey0520/isnip_api/dao/mysql"
 	"github.com/Grey0520/isnip_api/models"
 	"github.com/Grey0520/isnip_api/utils/snowflake"
-//    "github.com/Grey0520/isnip_api/logic"
+	//    "github.com/Grey0520/isnip_api/logic"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -40,7 +40,7 @@ func CreateSnippetHandler(c *gin.Context) {
 	fmt.Println(Snippet)
 	// 创建Snippet
 	if err := mysql.CreateSnippet(&Snippet); err != nil {
-		zap.L().Error("mysql.CreatePost(&post) failed", zap.Error(err))
+        zap.L().Error("mysql.CreateSnippet(&Snippet) failed", zap.Error(err))
 		ResponseError(c, CodeServerBusy)
 		return
 	}

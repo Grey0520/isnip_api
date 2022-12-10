@@ -1,10 +1,13 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Folder struct {
 	FolderID        uint64 `json:"id" db:"folder_id"`
 	FolderName      string `json:"name" db:"folder_name"`
+	UserID          uint64 `json:"user_id" db:"created_by"`
 	DefaultLanguage string `json:"default_language" db:"defaultLanguage"`
 }
 

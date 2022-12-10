@@ -11,7 +11,9 @@ import (
 )
 
 func CreateSnippet(snippet *models.Snippet) (err error) {
-	sqlStr := `insert into snippets(id,name,language,folder_id,tag_id,content,snippets.desc,isDeleted,isFavorites,created_at,created_by) values(?,?,?,?,?,?,?,?,?,?,?)`
+	sqlStr := `insert into
+snippets(id,name,language,folder_id,tag_id,content,snippets.desc,isDeleted,isFavorites,created_at,created_by)
+values(?,?,?,?,?,?,?,?,?,?,?)`
 	snippet.CreateTime = time.Now()
 	snippet.UpdateTime = time.Now()
 	_, err = db.Exec(sqlStr, snippet.SnipID, snippet.Name, snippet.Language, snippet.FolderID, snippet.TagID, snippet.Value, snippet.Desc, snippet.IsDelete, snippet.IsFavorites, snippet.CreateTime, snippet.CreateBy)

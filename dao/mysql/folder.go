@@ -24,3 +24,14 @@ where community_id = ?`
 	}
 	return community, err
 }
+
+func CreateFolder(folder *models.Folder) (err error) {
+    sqlStr := `insert into folders(folder_id,folder_name,created_by,defaultLanguage) values(?,?,?,?)`
+    _, err = db.Exec(sqlStr, folder.FolderID,folder.FolderName,folder.UserID,folder.DefaultLanguage)
+    if err!=nil {
+        zap.L().Error("insert folder failed", zap.Error(err))
+        err = ErrorInsertFailed
+        return
+    }
+    return
+}
