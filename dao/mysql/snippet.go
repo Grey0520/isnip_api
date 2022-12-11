@@ -2,11 +2,10 @@ package mysql
 
 import (
 	"database/sql"
-	"strings"
 	"time"
 
 	"github.com/Grey0520/isnip_api/models"
-	"github.com/jmoiron/sqlx"
+
 	"go.uber.org/zap"
 )
 
@@ -34,28 +33,13 @@ func GetSnippetListByUserID(userID uint64) (SnippetList []*models.Snippet, err e
 		return
 	}
 	if err != nil {
-		zap.L().Error("query post failed", zap.String("sql", sqlStr), zap.Error(err))
+		zap.L().Error("query snippet failed", zap.String("sql", sqlStr), zap.Error(err))
 		err = ErrorQueryFailed
 		return
 	}
 	return
 }
 
-func GetSnippetListByIDs(ids []string) (snippetList []*models.Snippet, err error) {
-	sqlStr := `select post_id, title, content, author_id, community_id, create_time
-from post
-where post_id in (?)
-order by FIND_IN_SET(post_id, ?)`
-	// 动态填充id
-	query, args, err := sqlx.In(sqlStr, ids, strings.Join(ids, ","))
-	if err != nil {
-		return
-	}
-	// sqlx.In 返回带 `?` bindvar的查询语句, 我们使用Rebind()重新绑定它
-	query = db.Rebind(query)
-	err = db.Select(&snippetList, query, args...)
-	return
-}
 
 func GetSnippetList(page, size int64) (posts []*models.Snippet, err error) {
 	sqlStr := `select id,name,language,folder_id,tag_id,content,snippets.desc,isDeleted,isFavorites,created_at,created_by

@@ -35,3 +35,18 @@ func CreateFolder(folder *models.Folder) (err error) {
     }
     return
 }
+
+func GetFolderListByUserID(userID uint64) (FolderList []*models.Folder, err error) {
+    sqlStr := `SELECT * FROM folders Where created_by = ?`
+    err = db.Select(&FolderList, sqlStr, userID)
+    if err == sql.ErrNoRows {
+        err = ErrorInvalidID
+        return
+    }
+    if err != nil {
+        zap.L().Error("query folder failed", zap.String("sql", sqlStr),zap.Error(err))
+        err = ErrorQueryFailed
+        return
+    }
+    return
+}

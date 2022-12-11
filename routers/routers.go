@@ -43,6 +43,7 @@ func SetupRouter(mode string) *gin.Engine {
 		v1.POST("/snippet", controller.CreateSnippetHandler)
 		v1.GET("/snippet", controller.SnippetListHandler)
         v1.POST("/folder",controller.CreateFolderHandler)
+        v1.GET("/folder", controller.FolderListHandler)
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})

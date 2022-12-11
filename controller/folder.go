@@ -39,3 +39,17 @@ func CreateFolderHandler(c *gin.Context) {
     }
     ResponseSuccess(c, nil)
 }
+
+func FolderListHandler(c *gin.Context) {
+    userID, err := getCurrentUserID(c)
+    if err !=  nil {
+        ResponseError(c, CodeInvalidParams)
+        return
+    }
+    folder, err := mysql.GetFolderListByUserID(userID)
+    if err != nil {
+        ResponseError(c, CodeServerBusy)
+        return
+    }
+    ResponseSuccess(c, folder)
+}
