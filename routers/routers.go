@@ -47,6 +47,7 @@ func SetupRouter(mode string) *gin.Engine {
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})
+		v1.POST("/update_snippet",controller.UpdateSnippetHandler)
 	}
 
 	pprof.Register(r) // 注册pprof相关路由

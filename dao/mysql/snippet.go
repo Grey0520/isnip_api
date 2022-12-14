@@ -52,3 +52,16 @@ limit ?,?
 	err = db.Select(&posts, sqlStr, (page-1)*size, size)
 	return
 }
+
+func UpdateSnippet(snippet *models.Snippet) (err error) {
+	sqlStr := `UPDATE snippets
+	SET name = ?,language= ?,folder_id= ?,tag_id= ?,content= ?,snippets.desc= ?,isDeleted= ?,isFavorites= ?
+	where snippets.id = ?`
+	_, err = db.Exec(sqlStr, snippet.Name, snippet.Language, snippet.FolderID, snippet.TagID, snippet.Value, snippet.Desc, snippet.IsDelete, snippet.IsFavorites, snippet.SnipID)
+	if err != nil {
+		zap.L().Error("updated snippet failed", zap.Error(err))
+		err = ErrorInsertFailed
+		return
+	}
+	return
+}
