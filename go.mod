@@ -1,4 +1,4 @@
-module github.com/Grey0520/isnip_api/v2
+module github.com/Grey0520/isnip_api
 
 go 1.20
 

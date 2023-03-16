@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/Grey0520/isnip_api/v2/config"
-	"github.com/Grey0520/isnip_api/v2/models"
+	config "github.com/Grey0520/isnip_api/configs"
+	"github.com/Grey0520/isnip_api/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
