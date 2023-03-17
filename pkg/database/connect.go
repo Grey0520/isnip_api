@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	config "github.com/Grey0520/isnip_api/configs"
-	"github.com/Grey0520/isnip_api/internal/models"
+	"github.com/Grey0520/isnip_api/internal/model"
+	"github.com/Grey0520/isnip_api/pkg/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -28,6 +28,6 @@ func ConnectDB() {
 
 	fmt.Println("Connection Opened to Database")
 	DB.AutoMigrate(
-		&models.User{}, &models.Snippet{}, &models.Folder{}, &models.Tag{})
+		&model.User{}, &model.Snippet{}, &model.Folder{}, &model.Tag{})
 	fmt.Println("Database Migrated")
 }
